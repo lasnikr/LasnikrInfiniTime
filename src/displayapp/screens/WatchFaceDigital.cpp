@@ -180,7 +180,7 @@ void WatchFaceDigital::Refresh() {
         temp = Controllers::SimpleWeatherService::CelsiusToFahrenheit(temp);
         tempUnit = 'F';
       }
-      temp = temp / 100 + (temp % 100 >= 50 ? 1 : 0);
+      temp = Controllers::SimpleWeatherService::TempToUnits(temp);
       lv_label_set_text_fmt(temperature, "%d°%c", temp, tempUnit);
       lv_label_set_text(weatherIcon, Symbols::GetSymbol(optCurrentWeather->iconId));
     } else {

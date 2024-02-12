@@ -547,7 +547,7 @@ void WatchFacePineTimeStyle::Refresh() {
       if (settingsController.GetWeatherFormat() == Controllers::Settings::WeatherFormat::Imperial) {
         temp = Controllers::SimpleWeatherService::CelsiusToFahrenheit(temp);
       }
-      temp = temp / 100 + (temp % 100 >= 50 ? 1 : 0);
+      temp = Controllers::SimpleWeatherService::TempToUnits(temp);
       lv_label_set_text_fmt(temperature, "%d°", temp);
       lv_label_set_text(weatherIcon, Symbols::GetSymbol(optCurrentWeather->iconId));
     } else {

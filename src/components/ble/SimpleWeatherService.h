@@ -112,6 +112,10 @@ namespace Pinetime {
         return celsius * 9 / 5 + 3200;
       }
 
+      static int16_t TempToUnits(int16_t temp) {
+        return temp = temp / 100 + (temp % 100 >= 50 ? 1 : 0);
+      }
+
     private:
       // 00050000-78fc-48fe-8e23-433b3a1942d0
       static constexpr ble_uuid128_t BaseUuid() {
