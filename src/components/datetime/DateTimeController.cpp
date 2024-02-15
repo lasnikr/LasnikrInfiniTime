@@ -84,12 +84,12 @@ void DateTime::UpdateTime(uint32_t systickCounter) {
     isHourAlreadyNotified = false;
   }
 
-  if ((minute == 0 || minute == 30) && !isHalfHourAlreadyNotified) {
+  if (minute % 10 == 0 && !isHalfHourAlreadyNotified) {
     isHalfHourAlreadyNotified = true;
     if (systemTask != nullptr) {
       systemTask->PushMessage(System::Messages::OnNewHalfHour);
     }
-  } else if (minute != 0 && minute != 30) {
+  } else if (minute % 10 != 0) {
     isHalfHourAlreadyNotified = false;
   }
 
