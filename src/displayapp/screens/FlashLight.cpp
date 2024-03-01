@@ -17,8 +17,6 @@ namespace {
 FlashLight::FlashLight(System::SystemTask& systemTask, Controllers::BrightnessController& brightnessController)
   : systemTask {systemTask}, brightnessController {brightnessController} {
 
-  brightnessController.Set(Controllers::BrightnessController::Levels::Low);
-
   flashLight = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(flashLight, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &lv_font_sys_48);
   lv_label_set_text_static(flashLight, Symbols::flashlight);
@@ -33,6 +31,9 @@ FlashLight::FlashLight(System::SystemTask& systemTask, Controllers::BrightnessCo
   lv_obj_align(indicators[1], flashLight, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
   lv_obj_align(indicators[0], indicators[1], LV_ALIGN_OUT_LEFT_MID, -8, 0);
   lv_obj_align(indicators[2], indicators[1], LV_ALIGN_OUT_RIGHT_MID, 8, 0);
+
+  brightnessController.Set(brightnessLevel);
+  isOn = true;
 
   SetIndicators();
   SetColors();
