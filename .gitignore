@@ -28,6 +28,7 @@ core
 sdk
 src/Version.h
 docker/post_build.sh
+build.sh
 Testing/Temporary/
 
 # Linux
@@ -50,3 +51,8 @@ src/arm-none-eabi
 
 # clangd
 .cache/
+
+# Node
+package-lock.json
+package.json
+node_modules/
