@@ -75,7 +75,7 @@ namespace Pinetime {
         lv_obj_t* btnReset;
         lv_obj_t* btnRandom;
         lv_obj_t* btnClose;
-        lv_obj_t* btnSteps;
+        lv_obj_t* btnIndicator;
         lv_obj_t* btnWeather;
         lv_obj_t* timebar;
         lv_obj_t* sidebar;
@@ -89,6 +89,7 @@ namespace Pinetime {
         lv_obj_t* weatherIcon;
         lv_obj_t* temperature;
         lv_obj_t* plugIcon;
+        lv_obj_t* batteryValue;
         lv_obj_t* bleIcon;
         lv_obj_t* calendarOuter;
         lv_obj_t* calendarInner;
@@ -97,12 +98,9 @@ namespace Pinetime {
         lv_obj_t* calendarCrossBar1;
         lv_obj_t* calendarCrossBar2;
         lv_obj_t* notificationIcon;
-        lv_obj_t* stepGauge;
         lv_obj_t* btnSetColor;
         lv_obj_t* btnSetOpts;
-        lv_obj_t* stepIcon;
         lv_obj_t* stepValue;
-        lv_color_t needle_colors[1];
 
         BatteryIcon batteryIcon;
 

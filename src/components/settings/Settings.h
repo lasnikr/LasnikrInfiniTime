@@ -35,14 +35,14 @@ namespace Pinetime {
         Orange,
         Pink
       };
-      enum class PTSGaugeStyle : uint8_t { Full, Half, Numeric };
+      enum class PTSIndicator : uint8_t { Seconds, Steps };
       enum class PTSWeather : uint8_t { On, Off };
 
       struct PineTimeStyle {
         Colors ColorTime = Colors::Teal;
         Colors ColorBar = Colors::Teal;
         Colors ColorBG = Colors::Black;
-        PTSGaugeStyle gaugeStyle = PTSGaugeStyle::Full;
+        PTSIndicator indicator = PTSIndicator::Seconds;
         PTSWeather weatherEnable = PTSWeather::Off;
       };
 
@@ -135,14 +135,14 @@ namespace Pinetime {
         return settings.watchFaceInfineat.colorIndex;
       };
 
-      void SetPTSGaugeStyle(PTSGaugeStyle gaugeStyle) {
-        if (gaugeStyle != settings.PTS.gaugeStyle)
+      void SetPTSIndicator(PTSIndicator indicator) {
+        if (indicator != settings.PTS.indicator)
           settingsChanged = true;
-        settings.PTS.gaugeStyle = gaugeStyle;
+        settings.PTS.indicator = indicator;
       };
 
-      PTSGaugeStyle GetPTSGaugeStyle() const {
-        return settings.PTS.gaugeStyle;
+      PTSIndicator GetPTSIndicator() const {
+        return settings.PTS.indicator;
       };
 
       void SetPTSWeather(PTSWeather weatherEnable) {

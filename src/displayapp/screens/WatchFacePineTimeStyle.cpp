@@ -96,18 +96,9 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   lv_obj_align(sidebar, lv_scr_act(), LV_ALIGN_IN_TOP_RIGHT, 0, 0);
 
   // Display icons
-  batteryIcon.Create(sidebar);
-  batteryIcon.SetColor(LV_COLOR_BLACK);
-  lv_obj_align(batteryIcon.GetObject(), nullptr, LV_ALIGN_IN_TOP_MID, 10, 2);
-
-  plugIcon = lv_label_create(lv_scr_act(), nullptr);
-  lv_label_set_text_static(plugIcon, Symbols::plug);
-  lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  lv_obj_align(plugIcon, sidebar, LV_ALIGN_IN_TOP_MID, 10, 2);
-
   bleIcon = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  lv_obj_align(bleIcon, sidebar, LV_ALIGN_IN_TOP_MID, -10, 2);
+  lv_obj_align(bleIcon, sidebar, LV_ALIGN_IN_TOP_MID, 0, 2);
 
   notificationIcon = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(settingsController.GetPTSColorTime()));
@@ -192,74 +183,40 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   lv_label_set_text_static(dateMonth, "MAR");
   lv_obj_align(dateMonth, calendarOuter, LV_ALIGN_CENTER, 0, 32);
 
-  // Step count gauge
-  if (settingsController.GetPTSColorBar() == Pinetime::Controllers::Settings::Colors::White) {
-    needle_colors[0] = LV_COLOR_BLACK;
-  } else {
-    needle_colors[0] = LV_COLOR_WHITE;
-  }
-  // stepGauge = lv_gauge_create(lv_scr_act(), nullptr);
-  // lv_gauge_set_needle_count(stepGauge, 1, needle_colors);
-  // lv_gauge_set_range(stepGauge, 0, 100);
-  // lv_gauge_set_value(stepGauge, 0, 0);
-  // if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Full) {
-  //   lv_obj_set_size(stepGauge, 40, 40);
-  //   lv_obj_align(stepGauge, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-  //   lv_gauge_set_scale(stepGauge, 360, 11, 0);
-  //   lv_gauge_set_angle_offset(stepGauge, 180);
-  //   lv_gauge_set_critical_value(stepGauge, 100);
-  // } else if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Half) {
-  //   lv_obj_set_size(stepGauge, 37, 37);
-  //   lv_obj_align(stepGauge, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -10);
-  //   lv_gauge_set_scale(stepGauge, 180, 5, 0);
-  //   lv_gauge_set_angle_offset(stepGauge, 0);
-  //   lv_gauge_set_critical_value(stepGauge, 120);
-  // } else if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Numeric) {
-  //   lv_obj_set_hidden(stepGauge, true);
-  // }
-
-  // lv_obj_set_style_local_pad_right(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 3);
-  // lv_obj_set_style_local_pad_left(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 3);
-  // lv_obj_set_style_local_pad_bottom(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 3);
-  // lv_obj_set_style_local_line_opa(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_COVER);
-  // lv_obj_set_style_local_scale_width(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 4);
-  // lv_obj_set_style_local_line_width(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, 4);
-  // lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  // lv_obj_set_style_local_line_opa(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, LV_OPA_COVER);
-  // lv_obj_set_style_local_line_width(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, 3);
-  // lv_obj_set_style_local_pad_inner(stepGauge, LV_GAUGE_PART_NEEDLE, LV_STATE_DEFAULT, 4);
-
-  // stepValue = lv_label_create(lv_scr_act(), nullptr);
-  // lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  // lv_label_set_text_static(stepValue, "0");
-  // lv_obj_align(stepValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-  // if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Numeric) {
-  //  lv_obj_set_hidden(stepValue, false);
-  // } else {
-  //  lv_obj_set_hidden(stepValue, true);
-  // }
-
-  // stepIcon = lv_label_create(lv_scr_act(), nullptr);
-  // lv_obj_set_style_local_text_color(stepIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  // lv_label_set_text_static(stepIcon, Symbols::shoe);
-  // lv_obj_align(stepIcon, stepValue, LV_ALIGN_OUT_TOP_MID, 0, 0);
-  // if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Numeric) {
-  //   lv_obj_set_hidden(stepIcon, false);
-  // } else {
-  //   lv_obj_set_hidden(stepIcon, true);
-  // }
-
   // Display seconds
   timeDD3 = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
   lv_label_set_text_static(timeDD3, "00");
-  lv_obj_align(timeDD3, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -10);
-  // if (settingsController.GetPTSGaugeStyle() == Pinetime::Controllers::Settings::PTSGaugeStyle::Half) {
-  //  lv_obj_set_hidden(timeDD3, false);
-  // } else {
-    lv_obj_set_hidden(timeDD3, false);
-  // }
+  lv_obj_align(timeDD3, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -25);
 
+  // Display steps
+  stepValue = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_label_set_text_static(stepValue, "0K");
+  lv_obj_align(stepValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -25);
+
+  if (settingsController.GetPTSIndicator() == Pinetime::Controllers::Settings::PTSIndicator::Seconds) {
+    lv_obj_set_hidden(stepValue, true);
+  } else if (settingsController.GetPTSIndicator() == Pinetime::Controllers::Settings::PTSIndicator::Steps) {
+    lv_obj_set_hidden(timeDD3, true);
+  }
+
+  // Display battery
+  batteryValue = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_set_style_local_text_color(batteryValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_label_set_text_static(batteryValue, "99");
+  lv_obj_align(batteryValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, -9, -5);
+
+  batteryIcon.Create(sidebar);
+  batteryIcon.SetColor(LV_COLOR_BLACK);
+  lv_obj_align(batteryIcon.GetObject(), sidebar, LV_ALIGN_IN_BOTTOM_MID, 10, -7);
+
+  plugIcon = lv_label_create(lv_scr_act(), nullptr);
+  lv_label_set_text_static(plugIcon, Symbols::plug);
+  lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
+  lv_obj_align(plugIcon, sidebar, LV_ALIGN_IN_BOTTOM_MID, 10, -10);
+
+  // Settings Screen
   btnNextTime = lv_btn_create(lv_scr_act(), nullptr);
   btnNextTime->user_data = this;
   lv_obj_set_size(btnNextTime, 60, 60);
@@ -350,15 +307,15 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   lv_obj_set_event_cb(btnClose, event_handler);
   lv_obj_set_hidden(btnClose, true);
 
-  btnSteps = lv_btn_create(lv_scr_act(), nullptr);
-  btnSteps->user_data = this;
-  lv_obj_set_size(btnSteps, 160, 60);
-  lv_obj_align(btnSteps, lv_scr_act(), LV_ALIGN_CENTER, 0, -10);
-  lv_obj_set_style_local_bg_opa(btnSteps, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_50);
-  lv_obj_t* lblSteps = lv_label_create(btnSteps, nullptr);
-  lv_label_set_text_static(lblSteps, "Steps style");
-  lv_obj_set_event_cb(btnSteps, event_handler);
-  lv_obj_set_hidden(btnSteps, true);
+  btnIndicator = lv_btn_create(lv_scr_act(), nullptr);
+  btnIndicator->user_data = this;
+  lv_obj_set_size(btnIndicator, 160, 60);
+  lv_obj_align(btnIndicator, lv_scr_act(), LV_ALIGN_CENTER, 0, -10);
+  lv_obj_set_style_local_bg_opa(btnIndicator, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_50);
+  lv_obj_t* lblSteps = lv_label_create(btnIndicator, nullptr);
+  lv_label_set_text_static(lblSteps, "Secs / Steps");
+  lv_obj_set_event_cb(btnIndicator, event_handler);
+  lv_obj_set_hidden(btnIndicator, true);
 
   btnWeather = lv_btn_create(lv_scr_act(), nullptr);
   btnWeather->user_data = this;
@@ -427,7 +384,7 @@ void WatchFacePineTimeStyle::CloseMenu() {
   lv_obj_set_hidden(btnReset, true);
   lv_obj_set_hidden(btnRandom, true);
   lv_obj_set_hidden(btnClose, true);
-  lv_obj_set_hidden(btnSteps, true);
+  lv_obj_set_hidden(btnIndicator, true);
   lv_obj_set_hidden(btnWeather, true);
 }
 
@@ -445,24 +402,6 @@ void WatchFacePineTimeStyle::SetBatteryIcon() {
 }
 
 void WatchFacePineTimeStyle::Refresh() {
-  isCharging = batteryController.IsCharging();
-  if (isCharging.IsUpdated()) {
-    if (isCharging.Get()) {
-      lv_obj_set_hidden(batteryIcon.GetObject(), true);
-      lv_obj_set_hidden(plugIcon, false);
-    } else {
-      lv_obj_set_hidden(batteryIcon.GetObject(), false);
-      lv_obj_set_hidden(plugIcon, true);
-      SetBatteryIcon();
-    }
-  }
-  if (!isCharging.Get()) {
-    batteryPercentRemaining = batteryController.PercentRemaining();
-    if (batteryPercentRemaining.IsUpdated()) {
-      SetBatteryIcon();
-    }
-  }
-
   bleState = bleController.IsConnected();
   bleRadioEnabled = bleController.IsRadioEnabled();
   if (bleState.IsUpdated() || bleRadioEnabled.IsUpdated()) {
@@ -527,17 +466,16 @@ void WatchFacePineTimeStyle::Refresh() {
     }
   }
 
-  // stepCount = motionController.NbSteps();
-  // if (stepCount.IsUpdated()) {
-  //   lv_gauge_set_value(stepGauge, 0, (stepCount.Get() / (settingsController.GetStepsGoal() / 100)) % 100);
-  //   lv_obj_realign(stepGauge);
-  //   lv_label_set_text_fmt(stepValue, "%luK", (stepCount.Get() / 1000));
-  //   lv_obj_realign(stepValue);
-  //   if (stepCount.Get() > settingsController.GetStepsGoal()) {
-  //     lv_obj_set_style_local_line_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
-  //     lv_obj_set_style_local_scale_grad_color(stepGauge, LV_GAUGE_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
-  //   }
-  // }
+  stepCount = motionController.NbSteps();
+  if (stepCount.IsUpdated()) {
+    lv_label_set_text_fmt(stepValue, "%luK", (stepCount.Get() / 1000));
+    
+    /*
+    if (stepCount.Get() > settingsController.GetStepsGoal()) {
+      TODO goal feedback
+    }
+    */
+  }
 
   currentWeather = weatherService.Current();
   if (currentWeather.IsUpdated()) {
@@ -564,6 +502,28 @@ void WatchFacePineTimeStyle::Refresh() {
       lv_obj_set_hidden(btnSetOpts, true);
       savedTick = 0;
     }
+  }
+
+  isCharging = batteryController.IsCharging();
+  if (isCharging.IsUpdated()) {
+    if (isCharging.Get()) {
+      lv_obj_set_hidden(batteryIcon.GetObject(), true);
+      lv_obj_set_hidden(plugIcon, false);
+    } else {
+      lv_obj_set_hidden(batteryIcon.GetObject(), false);
+      lv_obj_set_hidden(plugIcon, true);
+      SetBatteryIcon();
+    }
+  }
+  
+  batteryPercentRemaining = batteryController.PercentRemaining();
+  if (batteryPercentRemaining.IsUpdated()) {
+    if (!isCharging.Get()) {
+      SetBatteryIcon();
+    }
+    int percent = batteryPercentRemaining.Get();
+    if (percent > 99) percent = 99;
+    lv_label_set_text_fmt(batteryValue, "%d", percent);
   }
 }
 
@@ -598,11 +558,6 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       if (valueBar == Controllers::Settings::Colors::Black) {
         valueBar = GetNext(valueBar);
       }
-      if (valueBar == Controllers::Settings::Colors::White) {
-        needle_colors[0] = LV_COLOR_BLACK;
-      } else {
-        needle_colors[0] = LV_COLOR_WHITE;
-      }
       settingsController.SetPTSColorBar(valueBar);
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBar));
     }
@@ -610,11 +565,6 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       valueBar = GetPrevious(valueBar);
       if (valueBar == Controllers::Settings::Colors::Black) {
         valueBar = GetPrevious(valueBar);
-      }
-      if (valueBar == Controllers::Settings::Colors::White) {
-        needle_colors[0] = LV_COLOR_BLACK;
-      } else {
-        needle_colors[0] = LV_COLOR_WHITE;
       }
       settingsController.SetPTSColorBar(valueBar);
       lv_obj_set_style_local_bg_color(sidebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBar));
@@ -636,7 +586,6 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       lv_obj_set_style_local_bg_color(timebar, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, Convert(valueBG));
     }
     if (object == btnReset) {
-      needle_colors[0] = LV_COLOR_WHITE;
       settingsController.SetPTSColorTime(Controllers::Settings::Colors::Teal);
       lv_obj_set_style_local_text_color(timeDD1, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Teal));
       lv_obj_set_style_local_text_color(timeDD2, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(Controllers::Settings::Colors::Teal));
@@ -656,11 +605,6 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
       if (valueBar == Controllers::Settings::Colors::Black) {
         valueBar = GetPrevious(valueBar);
       }
-      if (valueBar == Controllers::Settings::Colors::White) {
-        needle_colors[0] = LV_COLOR_BLACK;
-      } else {
-        needle_colors[0] = LV_COLOR_WHITE;
-      }
       settingsController.SetPTSColorTime(static_cast<Controllers::Settings::Colors>(valueTime));
       lv_obj_set_style_local_text_color(timeDD1, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(valueTime));
       lv_obj_set_style_local_text_color(timeDD2, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(valueTime));
@@ -673,36 +617,18 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
     if (object == btnClose) {
       CloseMenu();
     }
-    // if (object == btnSteps) {
-    //   if (!lv_obj_get_hidden(stepGauge) && (lv_obj_get_hidden(timeDD3))) {
-    //     // show half gauge & seconds
-    //     lv_obj_set_hidden(timeDD3, false);
-    //     lv_obj_set_size(stepGauge, 37, 37);
-    //     lv_obj_align(stepGauge, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -10);
-    //     lv_gauge_set_scale(stepGauge, 180, 5, 0);
-    //     lv_gauge_set_angle_offset(stepGauge, 0);
-    //     lv_gauge_set_critical_value(stepGauge, 120);
-    //     settingsController.SetPTSGaugeStyle(Controllers::Settings::PTSGaugeStyle::Half);
-    //   } else if (!lv_obj_get_hidden(timeDD3) && (lv_obj_get_hidden(stepValue))) {
-    //     // show step count & icon
-    //     lv_obj_set_hidden(timeDD3, true);
-    //     lv_obj_set_hidden(stepGauge, true);
-    //     lv_obj_set_hidden(stepValue, false);
-    //     lv_obj_set_hidden(stepIcon, false);
-    //     settingsController.SetPTSGaugeStyle(Controllers::Settings::PTSGaugeStyle::Numeric);
-    //   } else {
-    //     // show full gauge
-    //     lv_obj_set_hidden(stepGauge, false);
-    //     lv_obj_set_hidden(stepValue, true);
-    //     lv_obj_set_hidden(stepIcon, true);
-    //     lv_obj_set_size(stepGauge, 40, 40);
-    //     lv_obj_align(stepGauge, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, 0);
-    //     lv_gauge_set_scale(stepGauge, 360, 11, 0);
-    //     lv_gauge_set_angle_offset(stepGauge, 180);
-    //     lv_gauge_set_critical_value(stepGauge, 100);
-    //     settingsController.SetPTSGaugeStyle(Controllers::Settings::PTSGaugeStyle::Full);
-    //   }
-    // }
+
+    if (object == btnIndicator) {
+      if (lv_obj_get_hidden(timeDD3)) {
+        lv_obj_set_hidden(timeDD3, false);
+        lv_obj_set_hidden(stepValue, true);
+        settingsController.SetPTSIndicator(Controllers::Settings::PTSIndicator::Seconds);
+      } else {
+        lv_obj_set_hidden(timeDD3, true);
+        lv_obj_set_hidden(stepValue, false);
+        settingsController.SetPTSIndicator(Controllers::Settings::PTSIndicator::Steps);
+      }
+    }
     if (object == btnWeather) {
       if (lv_obj_get_hidden(weatherIcon)) {
         // show weather icon and temperature
@@ -750,7 +676,7 @@ void WatchFacePineTimeStyle::UpdateSelected(lv_obj_t* object, lv_event_t event) 
     if (object == btnSetOpts) {
       lv_obj_set_hidden(btnSetColor, true);
       lv_obj_set_hidden(btnSetOpts, true);
-      lv_obj_set_hidden(btnSteps, false);
+      lv_obj_set_hidden(btnIndicator, false);
       lv_obj_set_hidden(btnWeather, false);
       lv_obj_set_hidden(btnClose, false);
     }
