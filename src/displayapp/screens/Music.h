@@ -47,18 +47,12 @@ namespace Pinetime {
 
         void UpdateLength();
 
-        lv_obj_t* btnPrev;
         lv_obj_t* btnPlayPause;
-        lv_obj_t* btnNext;
-        lv_obj_t* btnVolDown;
-        lv_obj_t* btnVolUp;
         lv_obj_t* txtArtist;
         lv_obj_t* txtTrack;
         lv_obj_t* txtPlayPause;
 
         lv_obj_t* txtTrackDuration;
-
-        lv_style_t btn_style;
 
         Pinetime::Controllers::MusicService& musicService;
 
@@ -76,8 +70,6 @@ namespace Pinetime {
         bool playing;
 
         lv_task_t* taskRefresh;
-
-        /** Watchapp */
       };
     }
 
