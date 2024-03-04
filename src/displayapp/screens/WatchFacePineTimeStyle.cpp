@@ -187,17 +187,17 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   timeDD3 = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(timeDD3, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
   lv_label_set_text_static(timeDD3, "00");
-  lv_obj_align(timeDD3, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -25);
+  lv_obj_align(timeDD3, sidebar, LV_ALIGN_IN_BOTTOM_MID, -1, -25);
 
   // Display steps
   stepValue = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(stepValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  lv_label_set_text_static(stepValue, "0K");
-  lv_obj_align(stepValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, 0, -25);
+  lv_label_set_text_static(stepValue, "00K");
+  lv_obj_align(stepValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, -1, -25);
 
   if (settingsController.GetPTSIndicator() == Pinetime::Controllers::Settings::PTSIndicator::Seconds) {
     lv_obj_set_hidden(stepValue, true);
-  } else if (settingsController.GetPTSIndicator() == Pinetime::Controllers::Settings::PTSIndicator::Steps) {
+  } else {
     lv_obj_set_hidden(timeDD3, true);
   }
 
@@ -205,16 +205,16 @@ WatchFacePineTimeStyle::WatchFacePineTimeStyle(Controllers::DateTime& dateTimeCo
   batteryValue = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(batteryValue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
   lv_label_set_text_static(batteryValue, "99");
-  lv_obj_align(batteryValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, -9, -5);
+  lv_obj_align(batteryValue, sidebar, LV_ALIGN_IN_BOTTOM_MID, -7, -2);
 
   batteryIcon.Create(sidebar);
   batteryIcon.SetColor(LV_COLOR_BLACK);
-  lv_obj_align(batteryIcon.GetObject(), sidebar, LV_ALIGN_IN_BOTTOM_MID, 10, -7);
+  lv_obj_align(batteryIcon.GetObject(), sidebar, LV_ALIGN_IN_BOTTOM_MID, 12, -4);
 
   plugIcon = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_text_static(plugIcon, Symbols::plug);
   lv_obj_set_style_local_text_color(plugIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
-  lv_obj_align(plugIcon, sidebar, LV_ALIGN_IN_BOTTOM_MID, 10, -10);
+  lv_obj_align(plugIcon, sidebar, LV_ALIGN_IN_BOTTOM_MID, 12, -4);
 
   // Settings Screen
   btnNextTime = lv_btn_create(lv_scr_act(), nullptr);
@@ -468,7 +468,12 @@ void WatchFacePineTimeStyle::Refresh() {
 
   stepCount = motionController.NbSteps();
   if (stepCount.IsUpdated()) {
-    lv_label_set_text_fmt(stepValue, "%luK", (stepCount.Get() / 1000));
+    uint32_t displayCount = stepCount.Get();
+    if (displayCount >= 100000) {
+        lv_label_set_text_fmt(stepValue, "wow");
+    } else {
+        lv_label_set_text_fmt(stepValue, "%.2luk", (displayCount / 1000));
+    }
     
     /*
     if (stepCount.Get() > settingsController.GetStepsGoal()) {
@@ -523,7 +528,7 @@ void WatchFacePineTimeStyle::Refresh() {
     }
     int percent = batteryPercentRemaining.Get();
     if (percent > 99) percent = 99;
-    lv_label_set_text_fmt(batteryValue, "%d", percent);
+    lv_label_set_text_fmt(batteryValue, "%.2d", percent);
   }
 }
 

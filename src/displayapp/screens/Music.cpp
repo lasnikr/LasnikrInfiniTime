@@ -45,26 +45,24 @@ Music::Music(Pinetime::Controllers::MusicService& music) : musicService(music) {
 
   txtTrackDuration = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_long_mode(txtTrackDuration, LV_LABEL_LONG_SROLL);
-  lv_obj_set_style_local_text_font(txtTrackDuration, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_42);
   lv_label_set_text_static(txtTrackDuration, "--:--/--:--");
+  lv_label_set_align(txtTrackDuration, LV_LABEL_ALIGN_CENTER);
   lv_obj_set_width(txtTrackDuration, LV_HOR_RES);
   lv_obj_align(txtTrackDuration, nullptr, LV_ALIGN_IN_TOP_MID, 0, 30);
-  lv_label_set_align(txtTrackDuration, LV_ALIGN_IN_LEFT_MID);
   
-  txtArtist = lv_label_create(lv_scr_act(), nullptr);
-  lv_label_set_long_mode(txtArtist, LV_LABEL_LONG_SROLL_CIRC);
-  lv_obj_align(txtArtist, nullptr, LV_ALIGN_CENTER, 0, 20);
-  lv_obj_set_width(txtArtist, LV_HOR_RES - 10);
-  lv_label_set_align(txtArtist, LV_ALIGN_IN_LEFT_MID);
-  lv_label_set_text_static(txtArtist, "Artist Name");
-
   txtTrack = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_long_mode(txtTrack, LV_LABEL_LONG_SROLL_CIRC);
-  lv_obj_set_style_local_text_font(txtTrack, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_42);
   lv_obj_set_width(txtTrack, LV_HOR_RES - 10);
-  lv_label_set_align(txtTrack, LV_ALIGN_IN_LEFT_MID);
   lv_label_set_text_static(txtTrack, "This is a very long getTrack name");
-  lv_obj_align(txtTrack, nullptr, LV_ALIGN_CENTER, 5, 40);
+  lv_label_set_align(txtTrack, LV_LABEL_ALIGN_CENTER);
+  lv_obj_align(txtTrack, nullptr, LV_ALIGN_CENTER, 0, -20);
+
+  txtArtist = lv_label_create(lv_scr_act(), nullptr);
+  lv_label_set_long_mode(txtArtist, LV_LABEL_LONG_SROLL_CIRC);
+  lv_obj_set_width(txtArtist, LV_HOR_RES - 10);
+  lv_label_set_text_static(txtArtist, "Artist Name");
+  lv_label_set_align(txtArtist, LV_LABEL_ALIGN_CENTER);
+  lv_obj_align(txtArtist, nullptr, LV_ALIGN_CENTER, 0, -40);
 
   musicService.event(Controllers::MusicService::EVENT_MUSIC_OPEN);
 
