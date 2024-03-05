@@ -32,27 +32,24 @@ namespace Pinetime {
         static constexpr int nScreens = 4;
 
         static constexpr std::array<List::Applications, entriesPerScreen * nScreens> entries {{
-          {Symbols::sun, "Display", Apps::SettingDisplay},
+          {Symbols::clock, "Chimes", Apps::SettingChimes},
+          {Symbols::bluetooth, "Bluetooth", Apps::SettingBluetooth},
+          {Symbols::check, "Firmware", Apps::FirmwareValidation},
           {Symbols::eye, "Wake Up", Apps::SettingWakeUp},
+
           {Symbols::clock, "Time format", Apps::SettingTimeFormat},
           {Symbols::home, "Watch face", Apps::SettingWatchFace},
-
           {Symbols::shoe, "Steps", Apps::SettingSteps},
+          {Symbols::heartBeat, "Heartrate", Apps::SettingHeartRate},
+
           {Symbols::clock, "Date&Time", Apps::SettingSetDateTime},
           {Symbols::cloudSunRain, "Weather", Apps::SettingWeatherFormat},
           {Symbols::batteryHalf, "Battery", Apps::BatteryInfo},
-
-          {Symbols::clock, "Chimes", Apps::SettingChimes},
           {Symbols::tachometer, "Shake Calib.", Apps::SettingShakeThreshold},
-          {Symbols::check, "Firmware", Apps::FirmwareValidation},
-          {Symbols::bluetooth, "Bluetooth", Apps::SettingBluetooth},
 
+          {Symbols::sun, "Display", Apps::SettingDisplay},
           {Symbols::wrench, "Auto Open", Apps::SettingAutoOpen},
           {Symbols::list, "About", Apps::SysInfo},
-
-          // {Symbols::none, "None", Apps::None},
-          // {Symbols::none, "None", Apps::None},
-          // {Symbols::none, "None", Apps::None},
           // {Symbols::none, "None", Apps::None},
 
         }};
